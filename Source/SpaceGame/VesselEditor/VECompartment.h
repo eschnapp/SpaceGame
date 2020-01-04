@@ -6,6 +6,18 @@
 #include "GameFramework/Actor.h"
 #include "VECompartment.generated.h"
 
+UENUM(BlueprintType)
+enum class EVESocketTypeEnum : uint8
+{
+	VE_XPos	UMETA(DisplayName = "Positive X Direction Socket"),
+	VE_XNeg	UMETA(DisplayName = "Negative X Direction Socket"),
+	VE_YPos	UMETA(DisplayName = "Positive Y Direction Socket"),
+	VE_YNeg	UMETA(DisplayName = "Negative Y Direction Socket"),
+	VE_ZPos	UMETA(DisplayName = "Positive Z Direction Socket"),
+	VE_ZNeg	UMETA(DisplayName = "Negative Z Direction Socket")
+};
+
+
 UCLASS()
 class SPACEGAME_API AVECompartment : public AActor
 {
@@ -22,5 +34,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+private:
+	class AVEModule* _rootModule;
+	TMap<EVESocketTypeEnum, AVEModule*> _socketMap;
 
 };
