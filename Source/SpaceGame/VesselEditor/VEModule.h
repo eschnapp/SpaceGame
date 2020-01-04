@@ -23,7 +23,7 @@ public:
 	UPROPERTY(Category = "Static Mesh", EditAnywhere, BlueprintReadWrite)
 	class UStaticMesh* _ModuleDefaultStaticMesh;
 
-	UPROPERTY(Category = "Grid", VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(Category = "Grid", EditAnywhere, BlueprintReadWrite)
 	FIntVector _GridCoordinates;
 
 private:
@@ -37,7 +37,13 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UFUNCTION(Category = "Mouse Handlers", BlueprintCallable)
+	UFUNCTION(Category = "Grid", BlueprintImplementableEvent)
+	void CustomInitialization();
+
+	UFUNCTION(Category = "Grid", BlueprintCallable)
+	class AVEGridManager* GetGridManager() { return _gridManager; }
+
+	UFUNCTION(Category = "Grid", BlueprintCallable)
 	void InitializeModule(class AVEGridManager* gridManager_, FIntVector gridCoords_);
 
 	UFUNCTION(Category = "Mouse Handlers")

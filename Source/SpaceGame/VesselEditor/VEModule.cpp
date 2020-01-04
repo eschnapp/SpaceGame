@@ -26,6 +26,7 @@ AVEModule::AVEModule()
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("StaticMesh'/Game/VesselEditor/DefaultModuleMesh.DefaultModuleMesh'"));
 	UStaticMesh* Asset = MeshAsset.Object;
 	_ModuleStaticMeshComponent->SetStaticMesh(Asset);
+	_ModuleStaticMeshComponent->SetCollisionObjectType(ECollisionChannel::ECC_WorldDynamic);
 
 
 }
@@ -47,6 +48,7 @@ void AVEModule::InitializeModule(class AVEGridManager* gridManager_, FIntVector 
 {
 	_gridManager = gridManager_;
 	_GridCoordinates = gridCoords_;
+	CustomInitialization();
 }
 
 void AVEModule::HandleMouseClick(AActor* actor_, FKey mouseButtonKey_)
