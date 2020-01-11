@@ -17,4 +17,5 @@ class SPACEGAME_API AVEGameModeBase : public AGameModeBase
 public:
 
 	AVEGameModeBase();
+
 };

@@ -16,4 +16,6 @@ class SPACEGAME_API AVEPlayerController : public APlayerController
 	
 public:
 	AVEPlayerController();
+
+
 };

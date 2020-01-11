@@ -4,18 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Engine/StaticMeshSocket.h"
 #include "VECompartment.generated.h"
-
-UENUM(BlueprintType)
-enum class EVESocketTypeEnum : uint8
-{
-	VE_XPos	UMETA(DisplayName = "Positive X Direction Socket"),
-	VE_XNeg	UMETA(DisplayName = "Negative X Direction Socket"),
-	VE_YPos	UMETA(DisplayName = "Positive Y Direction Socket"),
-	VE_YNeg	UMETA(DisplayName = "Negative Y Direction Socket"),
-	VE_ZPos	UMETA(DisplayName = "Positive Z Direction Socket"),
-	VE_ZNeg	UMETA(DisplayName = "Negative Z Direction Socket")
-};
 
 
 UCLASS()
@@ -35,8 +25,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(Category = "Internals", VisibleAnywhere, BlueprintReadWrite)
+	TArray<UStaticMeshSocket*>	_SocketList;
+
 private:
-	class AVEModule* _rootModule;
-	TMap<EVESocketTypeEnum, AVEModule*> _socketMap;
 
 };
