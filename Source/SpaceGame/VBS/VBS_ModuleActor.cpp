@@ -218,7 +218,11 @@ bool AVBS_ModuleActor::IsConnectingWithModule(AVBS_ModuleActor* otherActor_)
 		{
 			imConnected = true;
 			FString msg = FString::Printf(TEXT("IM CONNECTED! (ME)[%s] (HIM)[%s] on my snap id [%d]"), *GetName(), *(otherActor_->GetName()), idx);
-			UKismetSystemLibrary::PrintString(GetWorld(), msg);
+			if (GEngine)
+			{
+				int uid = 313123;
+				GEngine->AddOnScreenDebugMessage(uid, 5.0f, FColor::Red, msg);
+			}
 			break;
 		}
 		idx++;
@@ -232,7 +236,11 @@ bool AVBS_ModuleActor::IsConnectingWithModule(AVBS_ModuleActor* otherActor_)
 		{
 			hesConnected = true;
 			FString msg = FString::Printf(TEXT("HES CONNECTED! (ME)[%s] (HIM)[%s] on HIS snap id [%d]"), *GetName(), *(otherActor_->GetName()), idx);
-			UKismetSystemLibrary::PrintString(GetWorld(), msg);
+			if (GEngine)
+			{
+				int uid = 432434;
+				GEngine->AddOnScreenDebugMessage(uid, 5.0f, FColor::Red, msg);
+			}
 			break;
 		}
 		idx++;
