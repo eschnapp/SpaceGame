@@ -7,7 +7,7 @@
 #include "VBS_GameModeBase.generated.h"
 
 /**
- * 
+ *  Base VBS GameMode Implementation (nothing special)
  */
 UCLASS()
 class SPACEGAME_API AVBS_GameModeBase : public AGameModeBase
