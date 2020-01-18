@@ -48,6 +48,7 @@ void AVBS_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	// Bind axis input for fwd/back and left/right controls (AWSD or whatever is currently set)
 	PlayerInputComponent->BindAxis("MoveForward", this, &AVBS_Character::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AVBS_Character::MoveRight);
+	PlayerInputComponent->BindAxis("MoveUp", this, &AVBS_Character::MoveUp);
 }
 
 // Handle the movement of the chacater on the fwd/backwards axis by a given scale
@@ -71,6 +72,19 @@ void AVBS_Character::MoveRight(float Value)
 	{
 		// Find out which way is "right" and record that the player wants to move that way.
 		FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::Y);
+		FVector NewLocation = GetActorLocation() + (Direction * Value);
+		SetActorLocation(NewLocation);
+		//AddMovementInput(Direction, Value);
+	}
+}
+
+// Handle the movement of the chacater on the left/right axis by a given scale
+void AVBS_Character::MoveUp(float Value)
+{
+	if (Value != 0)
+	{
+		// Find out which way is "right" and record that the player wants to move that way.
+		FVector Direction = FRotationMatrix(Controller->GetControlRotation()).GetScaledAxis(EAxis::Z);
 		FVector NewLocation = GetActorLocation() + (Direction * Value);
 		SetActorLocation(NewLocation);
 		//AddMovementInput(Direction, Value);

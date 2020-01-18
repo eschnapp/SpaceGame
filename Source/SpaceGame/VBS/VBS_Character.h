@@ -34,4 +34,8 @@ public:
 	// Control the movement on the Left-Right axis
 	UFUNCTION(Category = "Movement", BlueprintCallable)
 	void MoveRight(float Value);
+
+	// Control the movement on the Left-Right axis
+	UFUNCTION(Category = "Movement", BlueprintCallable)
+	void MoveUp(float Value);
 };

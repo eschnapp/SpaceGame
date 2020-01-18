@@ -173,6 +173,7 @@ TArray<FVector> AVBS_ModuleActor::GetGridConnectorPoints()
 	return result;
 }
 
+
 TArray<FVector> AVBS_ModuleActor::GetGridSnapPoints()
 {
 	TArray<FVector> result;
