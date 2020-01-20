@@ -45,7 +45,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UFUNCTION(BlueprintCallable)
-	void ConstructVesselProcedural(TArray<FSGVesselDescriptorItem> DescriptorArray);
+	void ConstructVesselProcedural(TArray<FSGVesselDescriptorItem> DescriptorArray, float GridSnapSize);
 
 	UStaticMesh* GetStaticMeshForModule(EVBS_ModuleTypes ModuleType);
 public:

@@ -48,7 +48,7 @@ void ASGVesselPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 }
 
-void ASGVesselPawn::ConstructVesselProcedural(TArray<FSGVesselDescriptorItem> DescriptorArray)
+void ASGVesselPawn::ConstructVesselProcedural(TArray<FSGVesselDescriptorItem> DescriptorArray, float GridSnapSize)
 {
 	// first make sure that no module is specified at the same grid snap and that at leat 1 is root
 	int bRootIndex = -1; 
@@ -98,7 +98,22 @@ void ASGVesselPawn::ConstructVesselProcedural(TArray<FSGVesselDescriptorItem> De
 		}
 		else
 		{
+			// if not, also need to create the static mesh compo and attach to root and offset
+			UStaticMesh* sm = GetStaticMeshForModule(item.ModuleType);
+			if (!sm)
+			{
+				// TODO: Log error
+				continue;
+			}
 
+			FVector offsetVector = (FVector(item.OffsetFromRoot) * GridSnapSize).GridSnap(GridSnapSize);
+			FVector rotationVector = FVector(item.RotationPhaseVector) * 90;
+			UStaticMeshComponent* compo = NewObject<UStaticMeshComponent>(this, *FString::Format(TEXT("Module_{0}"), { idx }));
+			compo->AttachToComponent(VesselRootModuleComponent, FAttachmentTransformRules::SnapToTargetIncludingScale);
+			compo->SetStaticMesh(sm);
+			compo->AddWorldRotation(rotationVector.Rotation());
+			compo->AddWorldOffset(offsetVector);
+			compo->RegisterComponent();
 		}
 		idx++;
 	}
@@ -106,5 +121,9 @@ void ASGVesselPawn::ConstructVesselProcedural(TArray<FSGVesselDescriptorItem> De
 
 UStaticMesh* ASGVesselPawn::GetStaticMeshForModule(EVBS_ModuleTypes ModuleType)
 {
-	return nullptr;
+	FVBS_ModuleDescriptor* md = ModuleConstructionDescriptorMap.Find(ModuleType);
+	if( !md )
+		return nullptr;
+
+	return md->GetModuleStaticMesh();
 }
